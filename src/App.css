@@ -1,38 +1,140 @@
 .App {
+  /*
+  display: flex;
+  justify-content: center;
+  align-content: center;
+
+   */
+}
+
+#content {
+  width: 460px;
+  height: 30%;
   text-align: center;
+  margin: auto;
+  margin-top: 12%;
+  -webkit-box-shadow: 1px 7px 48px -23px rgba(0,0,0,0.65);
+  -moz-box-shadow: 1px 7px 48px -23px rgba(0,0,0,0.65);
+  box-shadow: 1px 7px 48px -23px rgba(0,0,0,0.65);
+  padding: 30px;
+  border-radius: 15px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#stravacon {
+  width: 200px;
+  cursor: pointer;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+#stravacon:hover {
+  -webkit-box-shadow: 1px 7px 48px -23px rgba(0,0,0,0.65);
+  -moz-box-shadow: 1px 7px 48px -23px rgba(0,0,0,0.65);
+  box-shadow: 1px 7px 48px -23px rgba(0,0,0,0.65);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+#spotify {
+  margin: auto;
+  background-color: #1DB954;
+  padding: 12px;
+  width: 200px;
+  border-radius: 100px;
+  cursor: pointer;
+}
+
+#spotify:hover {
+  -webkit-box-shadow: 1px 7px 82px -11px rgba(29,185,84,1);
+  -moz-box-shadow: 1px 7px 82px -11px rgba(29,185,84,1);
+  box-shadow: 1px 7px 82px -11px rgba(29,185,84,1);
+  cursor: grab;
+}
+
+#debug {
+  display: none;
+}
+
+
+
+#bar {
+  height: 100px;
+}
+
+#profile {
+  position: absolute;
+  align-items: center;
+  top: 20px;
+  right: 10px;
+  display:flex;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 15px;
+  border: 1px solid #e0e0e0;
+}
+
+
+#profile:hover {
+}
+
+#profilePic {
+  height: 35px;
+  margin-left: 10px;
+  border-radius: 35px;
+}
+
+#signout {
+  font-size: 14px;
+  color: red;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+#signout:hover {
+  text-decoration: underline;
+
+}
+
+#card {
+  width: 500px;
+  height: 30%;
+  margin: auto;
+  margin-bottom: 40px;
+  border: 1px solid #e0e0e0;
+
+  padding: 30px;
+  border-radius: 15px;
+}
+
+#card:hover {
+  -webkit-box-shadow: 1px 7px 48px -23px rgba(0,0,0,0.65);
+  -moz-box-shadow: 1px 7px 48px -23px rgba(0,0,0,0.65);
+  box-shadow: 1px 7px 48px -23px rgba(0,0,0,0.65);
+}
+
+#songList {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+
+
+#songList {
+  line-height: 30px;
+}
+
+#cardList {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-wrap: wrap;
 }
 
-.App-link {
-  color: #61dafb;
+#header {
+  cursor: pointer;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#header:hover {
+  text-decoration: underline;
+}
+
+img:hover {
+  border: 1px solid black
 }
