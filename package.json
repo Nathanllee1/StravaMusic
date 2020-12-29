@@ -1,5 +1,6 @@
 {
   "name": "stravamusic",
+  "proxy": "http://192.168.42.18:4000",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -15,7 +16,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts ../stravamusic/build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

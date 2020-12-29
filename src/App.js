@@ -22,6 +22,11 @@ function App() {
         if (localStorage.getItem("lastClicked") === "strava" ) {
             let stravaCode = url.searchParams.get("code");
 
+            if (!stravaCode) { // edge case where it gets stuck on last clicked
+                localStorage.clear();
+                window.location.reload(false);
+            }
+
             const getData = async() => {
                 let myHeaders = new Headers();
                 myHeaders.append("Content-Type", "application/json");
@@ -40,6 +45,7 @@ function App() {
                     .then(result => {
                         console.log(result)
                         let res = JSON.parse(result);
+                        console.log(res);
                         if (res.spotRef) { // If the user exists
 
                             localStorage.setItem("stravaTok", res.stravaTok);
@@ -97,16 +103,14 @@ function App() {
 
     const onStravaClick = () => {
         localStorage.setItem("lastClicked", "strava")
-        const url = new URL(window.location);
-        setUrl(url.origin)
-        console.log(`http://www.strava.com/oauth/authorize?client_id=24406&response_type=code&redirect_uri=` + curUrl +`/exchange_token&approval_prompt=force&scope=read`)
-        window.location = `http://www.strava.com/oauth/authorize?client_id=24406&response_type=code&redirect_uri=` + encodeURI("http://localhost:3000")+`/exchange_token&approval_prompt=force&scope=activity:read_all,activity:write`;
+        //console.log(`http://www.strava.com/oauth/authorize?client_id=24406&response_type=code&redirect_uri=` + window.location.origin +`/exchange_token&approval_prompt=force&scope=activity:read_all,activity:write`)
+        window.location = `http://www.strava.com/oauth/authorize?client_id=24406&response_type=code&redirect_uri=` + window.location.origin +`/exchange_token&approval_prompt=force&scope=activity:read_all,activity:write`;
     }
 
     const onSpotifyClick = () => {
         //encodeURIComponent(curUrl)
         localStorage.setItem("lastClicked", "spotify")
-        window.location = "https://accounts.spotify.com/authorize?client_id=5a18a679262e4ac094c14cacfd5fd861&response_type=code&redirect_uri=" + encodeURI("http://localhost:3000")  + "&scope=user-read-private%20user-read-email%20user-read-recently-played&state=34fFs29kd09"
+        window.location = "https://accounts.spotify.com/authorize?client_id=5a18a679262e4ac094c14cacfd5fd861&response_type=code&redirect_uri=" + encodeURI(window.location.origin)  + "&scope=user-read-private%20user-read-email%20user-read-recently-played&state=34fFs29kd09"
     }
 
     const submit = () => {
@@ -129,6 +133,8 @@ function App() {
                     console.log(result);
                     let res = JSON.parse(result);
                     localStorage.setItem("spotTok",res.spotTok);
+                    localStorage.setItem("lastClicked", "signedIn")
+
                     setContent(<SignedIn />)
                 })
                 .catch(error => console.log('error', error));

@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import Card from './card';
 
+
+
 function SignedIn(props) {
 
     const [userObj, setObj] = useState({});
-    const [cards, setCards] = useState();
-    const [selectedSong, setSong] = useState();
+    const [cards, setCards] = useState([]);
+    const [selectedSong, setSong] = useState("5TUZhrb8UaaA76NhzZax2Z");
 
     useEffect(() => {
         if (userObj) {
@@ -13,9 +15,6 @@ function SignedIn(props) {
                 method: 'GET',
                 redirect: 'follow'
             };
-            console.log("fetch")
-
-
 
             if (localStorage.getItem("stravaInfo")) {
                 setObj(JSON.parse(localStorage.getItem("stravaInfo")));
@@ -74,24 +73,17 @@ function SignedIn(props) {
                                 localStorage.setItem(song, JSON.stringify(locSong))
                             }
 
-                            songList.push(
-                                <span>{locSong.name}</span>
-                            )
-
-                            //console.log(locSong.album.images[1].url)
-                            if (locSong["album"]) {
+                            if (locSong.album) {
+                                songList.push(<span id={locSong.id} className={selectedSong} id={locSong.id}>{locSong.name},&nbsp; </span>)
                                 imageList.push(
-                                    <div id={"image"} onMouseOver={() => setSong(locSong.id)}>
-                                        <img  key={locSong.id} src={locSong["album"].images[1].url} alt={"songImage"} width={80}/>
-
-                                    </div>
-
-                                    )
+                                    <img id={locSong.id} onMouseOver={() => setSong(locSong.id)} key={locSong.id} src={locSong["album"].images[1].url} alt={"songImage"} width={80}/>
+                                )
                             }
 
                         }
-
-                        cardList.push(<Card id={id} imageList={imageList} songList={songList} activity={activity}/>);
+                        console.log(imageList)
+                        cardList.push(<Card id={id} imageList={imageList} songList={songList} activity={activity}/>)
+                        //<Card id={id} imageList={imageList} songList={songList} activity={activity}/>
 
                     }
                     console.log(cardList);
@@ -102,11 +94,6 @@ function SignedIn(props) {
 
         }
     }, []);
-
-    const mouseEnter = (id) => {
-        setSong(id);
-        console.log(selectedSong)
-    }
 
     const refreshTokens = async() => {
         let refOptions = {
@@ -165,9 +152,12 @@ function SignedIn(props) {
         window.location.reload(false);
     }
 
+    console.log((cards === []));
+
+
 
     return (
-        <div id={"appPage"}>
+        <div id={"appPage"} >
             <div id={"bar"}>
                 <div id={"profile"}>
                     <p>{userObj.firstname} {userObj.lastname}</p>
@@ -177,8 +167,9 @@ function SignedIn(props) {
             </div>
             <div id={"cardList"}>
 
-                {cards}
+                {cards.length !== 0 ? cards : <div id={"content"}><h2>Everything is setup, when you record an activity while listening to Spotify, it will show up here</h2></div>}
             </div>
+
 
         </div>
 
@@ -186,3 +177,4 @@ function SignedIn(props) {
 }
 
 export default SignedIn;
+//<Card id={id} imageList={imageList} songList={songList} activity={card.activity}/>
