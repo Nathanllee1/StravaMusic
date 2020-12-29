@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "build",
+    "public": "public",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -11,7 +11,6 @@
         "source": "**",
         "destination": "/index.html"
       }
-    ],
-    "site": "stravamusic"
+    ]
   }
 }
