@@ -9,97 +9,101 @@ function App() {
 
     const [strava, setStrava] = useState();
     const [spotify, setSpotify] = useState();
-    const [curUrl, setUrl] = useState();
 
     const [content, setContent] = useState();
+    const [fetched, setFetched] = useState(false);
 
     const apiLoc = "http://60d228aec15f.ngrok.io";
 
     useEffect(() => {
-        const url = new URL(window.location);
-        setUrl(url.origin)
+        if (!fetched) {
+            const url = new URL(window.location);
 
-        if (localStorage.getItem("lastClicked") === "strava" ) {
-            let stravaCode = url.searchParams.get("code");
+            if (localStorage.getItem("lastClicked") === "strava" ) {
+                let stravaCode = url.searchParams.get("code");
 
-            if (!stravaCode) { // edge case where it gets stuck on last clicked
-                localStorage.clear();
-                window.location.reload(false);
-            }
+                if (!stravaCode) { // edge case where it gets stuck on last clicked
+                    localStorage.clear();
+                    window.location.reload(false);
+                }
 
-            const getData = async() => {
-                let myHeaders = new Headers();
-                myHeaders.append("Content-Type", "application/json");
+                const getData = async() => {
+                    let myHeaders = new Headers();
+                    myHeaders.append("Content-Type", "application/json");
 
-                let raw = JSON.stringify({"strava":stravaCode});
+                    let raw = JSON.stringify({"strava":stravaCode});
 
-                let requestOptions = {
-                    method: 'POST',
-                    headers: myHeaders,
-                    body: raw,
-                    redirect: 'follow'
-                };
+                    let requestOptions = {
+                        method: 'POST',
+                        headers: myHeaders,
+                        body: raw,
+                        redirect: 'follow'
+                    };
 
-                await fetch(apiLoc + "/authorizeStrava", requestOptions)
-                    .then(response => response.text())
-                    .then(result => {
-                        console.log(result)
-                        let res = JSON.parse(result);
-                        console.log(res);
-                        if (res.spotRef) { // If the user exists
+                    await fetch(apiLoc + "/authorizeStrava", requestOptions)
+                        .then(response => response.text())
+                        .then(result => {
+                            console.log(result)
+                            let res = JSON.parse(result);
+                            console.log(res);
+                            if (res.spotRef) { // If the user exists
 
-                            localStorage.setItem("stravaTok", res.stravaTok);
-                            localStorage.setItem("id", res.stravaId);
-                            //console.log(res.stravaID)
-                            localStorage.setItem("spotifyTok", res.spotTok);
-                            localStorage.setItem("lastClicked", "signedIn")
-                            setContent(<SignedIn />);
-                        } else { // If it's a new user
-                            localStorage.setItem("stravaTok", res.stravaTok);
-                            localStorage.setItem("stravaRef", res.stravaRef);
-                            localStorage.setItem("id", res.stravaId);
+                                localStorage.setItem("stravaTok", res.stravaTok);
+                                localStorage.setItem("id", res.stravaId);
+                                //console.log(res.stravaID)
+                                localStorage.setItem("spotifyTok", res.spotTok);
+                                localStorage.setItem("lastClicked", "signedIn")
+                                setContent(<SignedIn />);
+                            } else { // If it's a new user
+                                localStorage.setItem("stravaTok", res.stravaTok);
+                                localStorage.setItem("stravaRef", res.stravaRef);
+                                localStorage.setItem("id", res.stravaId);
 
-                            setContent (
-                                <div id="content">
-                                    <h1>Awesome! Link your Spotify account</h1>
-                                    <div id="spotify" onClick={onSpotifyClick}>
-                                        <img height={"24px"} src={spot} alt={"spotify"}/>
+                                setContent (
+                                    <div id="content">
+                                        <h1>Awesome! Link your Spotify account</h1>
+                                        <div id="spotify" onClick={onSpotifyClick}>
+                                            <img height={"24px"} src={spot} alt={"spotify"}/>
+                                        </div>
                                     </div>
-                                </div>
-                            )
-                        }
-                    })
-                    .catch(error => console.log('error', error));
+                                )
+                            }
+                        })
+                        .catch(error => console.log('error', error));
+                }
+                getData();
+
+            } else if (localStorage.getItem("lastClicked") === "signedIn") {
+                setContent (
+                    <SignedIn />
+                )
+            } else if (localStorage.getItem("lastClicked") === "spotify" ) {
+                let spotCode = url.searchParams.get("code")
+                localStorage.setItem("spotify", spotCode);
+                submit();
+
+            } else {
+                setContent (
+                    <div id="content">
+                        <h1>Put the songs you listened to on <span style={{"color":"#1DB954"}}>Spotify</span> during your activities on <span style={{"color":"#fc5200"}}>Strava</span></h1>
+                        <img width="350" src={demo} alt="Demo"/>
+                        <p>Once setup, the process is done completely automatically</p>
+                        <br />
+                        <br />
+                        <h2>Start by connecting your Strava Account</h2>
+                        <p>Or if you've already signed up also click here</p>
+                        <img id="stravacon" src={stravaCon} onClick={onStravaClick} alt="stravaConnect"/>
+                    </div>
+                )
             }
-            getData();
 
-        } else if (localStorage.getItem("lastClicked") === "signedIn") {
-          setContent (
-              <SignedIn />
-          )
-        } else if (localStorage.getItem("lastClicked") === "spotify" ) {
-            let spotCode = url.searchParams.get("code")
-            localStorage.setItem("spotify", spotCode);
-            submit();
+            setSpotify(localStorage.getItem("spotify"));
+            setStrava(localStorage.getItem("strava"));
 
-        } else {
-            setContent (
-                <div id="content">
-                    <h1>Put the songs you listened to on <span style={{"color":"#1DB954"}}>Spotify</span> during your activities on <span style={{"color":"#fc5200"}}>Strava</span></h1>
-                    <img width="350" src={demo} alt="Demo"/>
-                    <p>Once setup, the process is done completely automatically</p>
-                    <br />
-                    <br />
-                    <h2>Start by connecting your Strava Account</h2>
-                    <p>Or if you've already signed up also click here</p>
-                    <img id="stravacon" src={stravaCon} onClick={onStravaClick} alt="stravaConnect"/>
-                </div>
-            )
+            setFetched(true);
         }
 
-        setSpotify(localStorage.getItem("spotify"));
-        setStrava(localStorage.getItem("strava"));
-    }, [])
+    }, [fetched])
 
     const onStravaClick = () => {
         localStorage.setItem("lastClicked", "strava")

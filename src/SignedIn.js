@@ -8,92 +8,98 @@ function SignedIn(props) {
     const [userObj, setObj] = useState({});
     const [cards, setCards] = useState([]);
     const [selectedSong, setSong] = useState("5TUZhrb8UaaA76NhzZax2Z");
+    const [fetched, setFetched] = useState(false);
 
     useEffect(() => {
-        if (userObj) {
-            let requestOptions = {
-                method: 'GET',
-                redirect: 'follow'
-            };
+        if (!fetched) {
 
-            if (localStorage.getItem("stravaInfo")) {
-                setObj(JSON.parse(localStorage.getItem("stravaInfo")));
-            } else {
-                fetch(`https://www.strava.com/api/v3/athlete?access_token=${localStorage.getItem("stravaTok")}`, requestOptions)
+            if (userObj) {
+                let requestOptions = {
+                    method: 'GET',
+                    redirect: 'follow'
+                };
+
+                if (localStorage.getItem("stravaInfo")) {
+                    setObj(JSON.parse(localStorage.getItem("stravaInfo")));
+                } else {
+                    fetch(`https://www.strava.com/api/v3/athlete?access_token=${localStorage.getItem("stravaTok")}`, requestOptions)
+                        .then(response => response.text())
+                        .then(async result => {
+                            let res = JSON.parse(result);
+                            if (res.message === "Authorization Error") {
+                                await refreshTokens()
+                            }
+
+                            setObj(JSON.parse(result))
+                            localStorage.setItem("stravaInfo", result);
+                        })
+                        .catch(error => console.log('error', error));
+                }
+
+
+
+                let songOpt = {
+                    method: 'GET',
+                    redirect: 'follow'
+                };
+
+                fetch("http://60d228aec15f.ngrok.io/getActivities/?id=10441589", songOpt)
                     .then(response => response.text())
                     .then(async result => {
-                        let res = JSON.parse(result);
-                        if (res.message === "Authorization Error") {
-                            await refreshTokens()
-                        }
+                        console.log(result);
+                        let songs = JSON.parse(result);
 
-                        setObj(JSON.parse(result))
-                        localStorage.setItem("stravaInfo", result);
+                        let cardList = []
+
+                        for (const id of Object.keys(songs)) {
+                            console.log(id)
+                            let activity = localStorage.getItem(id);
+                            if (!activity) { // if it's not in local storage
+                                activity = await getActivity(id);
+                                localStorage.setItem(id, JSON.stringify(activity))
+                            } else {
+                                activity = JSON.parse(activity);
+                            }
+
+                            let songList = []
+                            let imageList = []
+                            for (const song of songs[id]) {
+                                let locSong = localStorage.getItem(song)
+                                if (locSong) {
+                                    locSong = JSON.parse(locSong);
+                                } else {
+                                    locSong = JSON.parse(await (getSong(song)));
+
+                                    if (locSong.error && locSong.error.status === 401) { // If token expired
+                                        await refreshTokens();
+                                    }
+                                    localStorage.setItem(song, JSON.stringify(locSong))
+                                }
+
+                                if (locSong.album) {
+                                    songList.push(<span className={selectedSong} id={locSong.id}>{locSong.name},&nbsp; </span>)
+                                    imageList.push(
+                                        <img id={locSong.id} onMouseOver={() => setSong(locSong.id)} key={locSong.id} src={locSong["album"].images[1].url} alt={"songImage"} width={80}/>
+                                    )
+                                }
+
+                            }
+                            console.log(imageList)
+                            cardList.push(<Card id={id} imageList={imageList} songList={songList} activity={activity}/>)
+                            //<Card id={id} imageList={imageList} songList={songList} activity={activity}/>
+
+                        }
+                        console.log(cardList);
+                        setCards(cardList);
+
                     })
                     .catch(error => console.log('error', error));
             }
-
-
-
-            let songOpt = {
-                method: 'GET',
-                redirect: 'follow'
-            };
-
-            fetch("http://60d228aec15f.ngrok.io/getActivities/?id=10441589", songOpt)
-                .then(response => response.text())
-                .then(async result => {
-                    console.log(result);
-                    let songs = JSON.parse(result);
-
-                    let cardList = []
-
-                    for (const id of Object.keys(songs)) {
-                        console.log(id)
-                        let activity = localStorage.getItem(id);
-                        if (!activity) { // if it's not in local storage
-                            activity = await getActivity(id);
-                            localStorage.setItem(id, JSON.stringify(activity))
-                        } else {
-                            activity = JSON.parse(activity);
-                        }
-
-                        let songList = []
-                        let imageList = []
-                        for (const song of songs[id]) {
-                            let locSong = localStorage.getItem(song)
-                            if (locSong) {
-                                locSong = JSON.parse(locSong);
-                            } else {
-                                locSong = JSON.parse(await (getSong(song)));
-
-                                if (locSong.error && locSong.error.status === 401) { // If token expired
-                                    await refreshTokens();
-                                }
-                                localStorage.setItem(song, JSON.stringify(locSong))
-                            }
-
-                            if (locSong.album) {
-                                songList.push(<span id={locSong.id} className={selectedSong} id={locSong.id}>{locSong.name},&nbsp; </span>)
-                                imageList.push(
-                                    <img id={locSong.id} onMouseOver={() => setSong(locSong.id)} key={locSong.id} src={locSong["album"].images[1].url} alt={"songImage"} width={80}/>
-                                )
-                            }
-
-                        }
-                        console.log(imageList)
-                        cardList.push(<Card id={id} imageList={imageList} songList={songList} activity={activity}/>)
-                        //<Card id={id} imageList={imageList} songList={songList} activity={activity}/>
-
-                    }
-                    console.log(cardList);
-                    setCards(cardList);
-
-                })
-                .catch(error => console.log('error', error));
-
         }
-    }, []);
+
+        setFetched(true);
+
+    }, [fetched, selectedSong, userObj]);
 
     const refreshTokens = async() => {
         let refOptions = {
