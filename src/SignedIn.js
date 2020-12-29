@@ -40,7 +40,7 @@ function SignedIn(props) {
                 redirect: 'follow'
             };
 
-            fetch("http://localhost:4000/getActivities/?id=10441589", songOpt)
+            fetch("http://60d228aec15f.ngrok.io/getActivities/?id=10441589", songOpt)
                 .then(response => response.text())
                 .then(async result => {
                     console.log(result);
@@ -99,7 +99,7 @@ function SignedIn(props) {
         let refOptions = {
             method: 'GET'
         }
-        fetch(`http://localhost:4000/refreshTokens/?id=${localStorage.getItem("id")}`, refOptions)
+        fetch(`http://60d228aec15f.ngrok.io/refreshTokens/?id=${localStorage.getItem("id")}`, refOptions)
             .then(response => response.text())
             .then(result => {
                 let res = JSON.parse(result);

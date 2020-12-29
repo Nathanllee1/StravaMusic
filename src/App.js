@@ -13,7 +13,7 @@ function App() {
 
     const [content, setContent] = useState();
 
-    const apiLoc = "http://localhost:4000";
+    const apiLoc = "http://60d228aec15f.ngrok.io";
 
     useEffect(() => {
         const url = new URL(window.location);
