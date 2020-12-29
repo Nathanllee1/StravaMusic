@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/stravamusic/static/css/main.43cf5347.chunk.css",
-    "main.js": "/stravamusic/static/js/main.11aa73cb.chunk.js",
-    "main.js.map": "/stravamusic/static/js/main.11aa73cb.chunk.js.map",
-    "runtime-main.js": "/stravamusic/static/js/runtime-main.0c9c3310.js",
-    "runtime-main.js.map": "/stravamusic/static/js/runtime-main.0c9c3310.js.map",
-    "static/js/2.0d036b54.chunk.js": "/stravamusic/static/js/2.0d036b54.chunk.js",
-    "static/js/2.0d036b54.chunk.js.map": "/stravamusic/static/js/2.0d036b54.chunk.js.map",
-    "static/js/3.af2f9e51.chunk.js": "/stravamusic/static/js/3.af2f9e51.chunk.js",
-    "static/js/3.af2f9e51.chunk.js.map": "/stravamusic/static/js/3.af2f9e51.chunk.js.map",
-    "index.html": "/stravamusic/index.html",
-    "static/css/main.43cf5347.chunk.css.map": "/stravamusic/static/css/main.43cf5347.chunk.css.map",
-    "static/js/2.0d036b54.chunk.js.LICENSE.txt": "/stravamusic/static/js/2.0d036b54.chunk.js.LICENSE.txt",
-    "static/media/Spotify_Logo_RGB_White.f48fb565.png": "/stravamusic/static/media/Spotify_Logo_RGB_White.f48fb565.png",
-    "static/media/demo.c1d4f23b.png": "/stravamusic/static/media/demo.c1d4f23b.png"
+    "main.css": "/StravaMusic/static/css/main.43cf5347.chunk.css",
+    "main.js": "/StravaMusic/static/js/main.11aa73cb.chunk.js",
+    "main.js.map": "/StravaMusic/static/js/main.11aa73cb.chunk.js.map",
+    "runtime-main.js": "/StravaMusic/static/js/runtime-main.1f328eb3.js",
+    "runtime-main.js.map": "/StravaMusic/static/js/runtime-main.1f328eb3.js.map",
+    "static/js/2.0d036b54.chunk.js": "/StravaMusic/static/js/2.0d036b54.chunk.js",
+    "static/js/2.0d036b54.chunk.js.map": "/StravaMusic/static/js/2.0d036b54.chunk.js.map",
+    "static/js/3.af2f9e51.chunk.js": "/StravaMusic/static/js/3.af2f9e51.chunk.js",
+    "static/js/3.af2f9e51.chunk.js.map": "/StravaMusic/static/js/3.af2f9e51.chunk.js.map",
+    "index.html": "/StravaMusic/index.html",
+    "static/css/main.43cf5347.chunk.css.map": "/StravaMusic/static/css/main.43cf5347.chunk.css.map",
+    "static/js/2.0d036b54.chunk.js.LICENSE.txt": "/StravaMusic/static/js/2.0d036b54.chunk.js.LICENSE.txt",
+    "static/media/Spotify_Logo_RGB_White.f48fb565.png": "/StravaMusic/static/media/Spotify_Logo_RGB_White.f48fb565.png",
+    "static/media/demo.c1d4f23b.png": "/StravaMusic/static/media/demo.c1d4f23b.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.0c9c3310.js",
+    "static/js/runtime-main.1f328eb3.js",
     "static/js/2.0d036b54.chunk.js",
     "static/css/main.43cf5347.chunk.css",
     "static/js/main.11aa73cb.chunk.js"
