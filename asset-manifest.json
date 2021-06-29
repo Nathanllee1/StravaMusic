@@ -1,24 +1,24 @@
 {
   "files": {
     "main.css": "/StravaMusic/static/css/main.43cf5347.chunk.css",
-    "main.js": "/StravaMusic/static/js/main.11aa73cb.chunk.js",
-    "main.js.map": "/StravaMusic/static/js/main.11aa73cb.chunk.js.map",
-    "runtime-main.js": "/StravaMusic/static/js/runtime-main.1f328eb3.js",
-    "runtime-main.js.map": "/StravaMusic/static/js/runtime-main.1f328eb3.js.map",
-    "static/js/2.0d036b54.chunk.js": "/StravaMusic/static/js/2.0d036b54.chunk.js",
-    "static/js/2.0d036b54.chunk.js.map": "/StravaMusic/static/js/2.0d036b54.chunk.js.map",
-    "static/js/3.af2f9e51.chunk.js": "/StravaMusic/static/js/3.af2f9e51.chunk.js",
-    "static/js/3.af2f9e51.chunk.js.map": "/StravaMusic/static/js/3.af2f9e51.chunk.js.map",
+    "main.js": "/StravaMusic/static/js/main.bc823946.chunk.js",
+    "main.js.map": "/StravaMusic/static/js/main.bc823946.chunk.js.map",
+    "runtime-main.js": "/StravaMusic/static/js/runtime-main.8460a4f9.js",
+    "runtime-main.js.map": "/StravaMusic/static/js/runtime-main.8460a4f9.js.map",
+    "static/js/2.a96fd6d6.chunk.js": "/StravaMusic/static/js/2.a96fd6d6.chunk.js",
+    "static/js/2.a96fd6d6.chunk.js.map": "/StravaMusic/static/js/2.a96fd6d6.chunk.js.map",
+    "static/js/3.32fadd52.chunk.js": "/StravaMusic/static/js/3.32fadd52.chunk.js",
+    "static/js/3.32fadd52.chunk.js.map": "/StravaMusic/static/js/3.32fadd52.chunk.js.map",
     "index.html": "/StravaMusic/index.html",
     "static/css/main.43cf5347.chunk.css.map": "/StravaMusic/static/css/main.43cf5347.chunk.css.map",
-    "static/js/2.0d036b54.chunk.js.LICENSE.txt": "/StravaMusic/static/js/2.0d036b54.chunk.js.LICENSE.txt",
+    "static/js/2.a96fd6d6.chunk.js.LICENSE.txt": "/StravaMusic/static/js/2.a96fd6d6.chunk.js.LICENSE.txt",
     "static/media/Spotify_Logo_RGB_White.f48fb565.png": "/StravaMusic/static/media/Spotify_Logo_RGB_White.f48fb565.png",
     "static/media/demo.c1d4f23b.png": "/StravaMusic/static/media/demo.c1d4f23b.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.1f328eb3.js",
-    "static/js/2.0d036b54.chunk.js",
+    "static/js/runtime-main.8460a4f9.js",
+    "static/js/2.a96fd6d6.chunk.js",
     "static/css/main.43cf5347.chunk.css",
-    "static/js/main.11aa73cb.chunk.js"
+    "static/js/main.bc823946.chunk.js"
   ]
 }
